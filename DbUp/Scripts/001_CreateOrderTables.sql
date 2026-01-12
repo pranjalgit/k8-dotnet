@@ -1,0 +1,8 @@
+﻿CREATE TABLE `Order` (
+    `OrderId` BIGINT AUTO_INCREMENT PRIMARY KEY,
+    `OrderDescription` VARCHAR(100) DEFAULT  NULL,
+    `OrderStatus` VARCHAR(100) DEFAULT NULL,
+    `OrderDate` VARCHAR(100) DEFAULT null,
+    `Price` DECIMAL(10,2) DEFAULT NULL
+    
+);

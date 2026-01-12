@@ -1,0 +1,36 @@
+﻿version: "3.9"
+
+services:
+  mysql:
+    image: mysql
+    pull_policy: never
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: pranjal@123
+      MYSQL_DATABASE: media
+    ports:
+      - "3306:3306"
+    networks:
+      - dotnetapp-network
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dotnet-api
+    pull_policy: never
+    restart: always
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      MySqlConnection: "Server=mysql-db;Port=3306;Database=media;User=root;Password=pranjal@123;"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    networks:
+      - dotnetapp-network
+
+
+networks:
+  dotnetapp-network:
