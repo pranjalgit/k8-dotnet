@@ -1,0 +1,11 @@
+﻿apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-config
+  namespace: dev
+data:
+  ASPNETCORE_ENVIRONMENT: "Development"
+  DB_HOST: "mysql"
+  DB_PORT: "3306"
+  DB_NAME: "media"
+  MySqlConnection: "server=mysql;port=3306;database=media;user=root;password=pranjal@123;"

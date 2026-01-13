@@ -1,0 +1,17 @@
+﻿apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: media-ingress
+  namespace: dev
+spec:
+  rules:
+    - host: media.dev.local
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: media-api-svc
+              port:
+                number: 80

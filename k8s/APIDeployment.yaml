@@ -1,0 +1,43 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: media-api
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: media-api
+  template:
+    metadata:
+        labels:
+          app: media-api
+    spec:
+     containers:
+        - name: media-api-ct
+          image: docker.io/pranjalpohre/k8-dotnetapi:1.0
+          ports:
+          - containerPort: 8080
+          env:
+            - name: DB_HOST
+              valueFrom:
+               configMapKeyRef:
+                  name: api-config
+                  key: DB_HOST
+            - name: DB_PORT
+              valueFrom:
+               configMapKeyRef:
+                  name: api-config
+                  key: DB_PORT
+            - name: DB_NAME
+              valueFrom:
+               configMapKeyRef:
+                  name: api-config
+                  key: DB_NAME
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_ROOT_PASSWORD
+            - name: MySqlConnection
+              value: server=mysql;port=3306;database=media;user=root;password=pranjal@123;
