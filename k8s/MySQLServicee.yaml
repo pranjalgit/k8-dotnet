@@ -4,7 +4,8 @@ metadata:
   name: mysql
   namespace: dev
 spec:
-  type: ClusterIP
+  #type: ClusterIP
+  clusterIP: None
   selector:
     app: mysql
   ports:
