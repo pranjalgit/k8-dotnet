@@ -11,7 +11,7 @@ metadata:
 spec:
   ingressClassName: nginx  
   rules:
-    - host: media.com
+    - host: myapp.local
       http:
         paths:
         - path: "/"
@@ -20,4 +20,4 @@ spec:
             service:
               name: media-api-svc
               port:
-                number: 80
+                number: 8000

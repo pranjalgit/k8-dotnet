@@ -4,7 +4,7 @@ metadata:
   name: media-api
   namespace: dev
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: media-api
@@ -17,7 +17,7 @@ spec:
         - name: media-api-ct
           image: docker.io/pranjalpohre/k8-dotnetapi:1.0
           ports:
-          - containerPort: 8080
+          - containerPort: 8000
           env:
             - name: DB_HOST
               valueFrom:
