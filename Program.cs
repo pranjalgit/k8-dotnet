@@ -17,11 +17,11 @@ builder.Services.AddDbContext<MediaContext>(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo
+    c.SwaggerDoc("v", new OpenApiInfo
     {
-        Title = "Order Api",
+        Title = "Order Api 1",
         Version = "v1",
-        Description = "Order Management API"
+        Description = "Order Management API 2"
     });
 });
 var app = builder.Build();
