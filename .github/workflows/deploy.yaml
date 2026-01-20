@@ -1,0 +1,40 @@
+﻿name: .NET API → Minikube (Docker)
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore & Build
+      run: |
+        dotnet restore
+        dotnet publish -c Release
+
+    - name: Setup Minikube
+      uses: medyagh/setup-minikube@latest
+      with:
+        driver: docker
+
+    - name: Build Docker image in Minikube
+      run: |
+        eval $(minikube docker-env)
+        docker build -t k8-dotnetapi:latest .
+
+    - name: Deploy to Kubernetes
+      run: |
+        kubectl apply -f k8s/
+
+    - name: Verify Pods
+      run: kubectl get pods
