@@ -22,4 +22,8 @@
 	  <EmbeddedResource Include="DbUp\Scripts\001_CreateOrderTables.sql" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Include=".github\workflows\deploy.yaml" />
+	</ItemGroup>
+
 </Project>
