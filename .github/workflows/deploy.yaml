@@ -13,7 +13,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-        eval $(minikube docker-env)
+        minikube docker-env --shell powershell | Invoke-Expression
         docker build -t dotnet-api:latest .
 
     - name: Deploy to Minikube
