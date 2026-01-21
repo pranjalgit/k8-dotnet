@@ -31,6 +31,9 @@ jobs:
       run: |
         eval $(minikube docker-env)
         docker build -t k8-dotnetapi:latest .
+        
+    - name: Create 'dev' Kubernetes Namespace
+      run: kubectl create namespace dev --dry-run=client -o yaml | kubectl apply -f -
 
     - name: Deploy to Kubernetes
       run: |
