@@ -29,7 +29,7 @@ jobs:
 
     - name: Build Docker image in Minikube
       run: |
-        eval $(minikube docker-env)
+        eval $(minikube -p minikube docker-env)
         docker build -t k8-dotnetapi:latest .
         
     - name: Create 'dev' Kubernetes Namespace

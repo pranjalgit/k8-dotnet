@@ -16,6 +16,7 @@ spec:
      containers:
         - name: media-api-ct
           image: docker.io/pranjalpohre/k8-dotnetapi:1.0
+          imagePullPolicy: Never
           ports:
           - containerPort: 8000
           env:
