@@ -1,21 +1,43 @@
-﻿name: Deploy to Local Minikube
+﻿name: .NET API → Minikube (Docker)
 
 on:
   push:
     branches: [ "main" ]
 
 jobs:
-  deploy:
+  build-deploy:
     runs-on: self-hosted
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout
+      uses: actions/checkout@v4
 
-    - name: Build Docker image
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore & Build
       run: |
-        minikube docker-env --shell powershell | Invoke-Expression
-        docker build -t dotnet-api:latest .
+        dotnet restore
+        dotnet publish -c Release
 
-    - name: Deploy to Minikube
+    # - name: Setup Minikube
+    #   uses: medyagh/setup-minikube@latest
+    #   with:
+    #     driver: docker
+
+    - name: Build Docker image in Minikube
+      run: |
+        minikube docker-env | Invoke-Expression
+        docker build -t media-api:latest .
+        
+    - name: Create 'dev' Kubernetes Namespace
+      run: kubectl create namespace dev --dry-run=client -o yaml | kubectl apply -f -
+
+    - name: Deploy to Kubernetes
       run: |
         kubectl apply -f ${{ github.workspace }}/k8s/
+
+    - name: Verify Pods
+      run: kubectl get pods
