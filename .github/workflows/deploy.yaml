@@ -6,7 +6,7 @@ on:
 
 jobs:
   build-deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
     - name: Checkout
@@ -29,8 +29,8 @@ jobs:
 
     - name: Build Docker image in Minikube
       run: |
-        eval $(minikube -p minikube docker-env)
-        docker build -t k8-dotnetapi:latest .
+        eval $(minikube docker-env)
+        docker build -t media-api:latest .
         
     - name: Create 'dev' Kubernetes Namespace
       run: kubectl create namespace dev --dry-run=client -o yaml | kubectl apply -f -
