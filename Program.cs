@@ -17,9 +17,9 @@ builder.Services.AddDbContext<MediaContext>(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v", new OpenApiInfo
+    c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "Order Api ",
+        Title = "Order Api test by github",
         Version = "v1",
         Description = "Order Management API 2"
     });
