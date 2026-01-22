@@ -110,7 +110,7 @@ jobs:
     - name: Replace image tag in deployment
       shell: cmd
       run: |
-        powershell -Command "(Get-Content ${{ github.workspace }}/k8s/APIDeployment.yaml) -replace '__TAG__', '%GITHUB_RUN_NUMBER%' | Set-Content ${{ github.workspace }}/k8s/APIDeployment.yaml"
+        powershell -Command "(Get-Content ${{ github.workspace }}/k8s/APIDeployment.yaml) -replace '__TAG__', %GITHUB_RUN_NUMBER% | Set-Content ${{ github.workspace }}/k8s/APIDeployment.yaml"
 
     - name: Deploy to Kubernetes
       run: |
