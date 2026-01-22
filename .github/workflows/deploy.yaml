@@ -28,9 +28,9 @@ jobs:
     #     driver: docker
 
     - name: Build Docker image in Minikube
-      shell: powershell
+      shell: cmd
       run: |
-            minikube docker-env --shell powershell | Invoke-Expression
+            FOR /f "tokens=*" %%i IN ('minikube docker-env --shell cmd') DO %%i
             docker build -t media-api:latest .
         
     - name: Create 'dev' Kubernetes Namespace
