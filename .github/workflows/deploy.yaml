@@ -26,12 +26,12 @@ jobs:
     #   uses: medyagh/setup-minikube@latest
     #   with:
     #     driver: docker
-    - name: Restart Minikube
-      shell: cmd
-      run: |
-        minikube stop
-        minikube delete
-        minikube start --driver=docker
+    # - name: Restart Minikube
+    #   shell: cmd
+    #   run: |
+    #     minikube stop
+    #     minikube delete
+    #     minikube start --driver=docker
 
     - name: Check Minikube status
       shell: cmd
@@ -42,6 +42,7 @@ jobs:
       run: |
             FOR /f "tokens=*" %%i IN ('minikube docker-env --shell cmd ^| findstr /v false') DO %%i
             docker build -t media-api:latest .
+
     - name: Fix kubectl context
       shell: cmd
       run: |
