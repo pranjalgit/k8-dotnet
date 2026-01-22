@@ -19,9 +19,9 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "Media Api V1",
+        Title = "Media Api V1 Dev",
         Version = "v1",
-        Description = "Media Management API V1"
+        Description = "Media Management API V1 dev"
     });
 });
 var app = builder.Build();
