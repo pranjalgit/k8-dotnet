@@ -48,7 +48,7 @@ jobs:
       shell: cmd
       run: |
         FOR /F "tokens=*" %%i IN ('minikube docker-env --shell cmd ^| findstr /v false') DO %%i
-        set DOCKER_TLS_VERIFY=
+        #set DOCKER_TLS_VERIFY=
         docker build -t media-api:latest .
 
     - name: Fix kubectl context
