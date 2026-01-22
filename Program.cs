@@ -19,9 +19,9 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "Order Api test by github ",
+        Title = "Order Api test by github 3",
         Version = "v1",
-        Description = "Order Management API 2"
+        Description = "Order Management API 3"
     });
 });
 var app = builder.Build();
