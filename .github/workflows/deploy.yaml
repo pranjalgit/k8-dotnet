@@ -26,13 +26,21 @@ jobs:
     #   uses: medyagh/setup-minikube@latest
     #   with:
     #     driver: docker
+    - name: Check Minikube status
+      shell: cmd
+      run: minikube status
 
     - name: Build Docker image in Minikube
       shell: cmd
       run: |
             FOR /f "tokens=*" %%i IN ('minikube docker-env --shell cmd ^| findstr /v false') DO %%i
             docker build -t media-api:latest .
-            
+    - name: Fix kubectl context
+      shell: cmd
+      run: |
+        minikube update-context
+        kubectl config get-contexts
+    
     - name: Set kubectl context
       shell: cmd
       run: |
