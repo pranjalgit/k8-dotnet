@@ -87,7 +87,10 @@ jobs:
     - name: Deploy to Kubernetes
       run: |
         kubectl apply -f ${{ github.workspace }}/k8s/
+        sleep 120
         kubectl port-forward svc/media-api-svc 8080:8080 -n dev
+        sleep 15
+        curl http://127.0.0.1:8080
 
     - name: Verify Pods
       run: kubectl get pods
