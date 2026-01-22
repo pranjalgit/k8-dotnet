@@ -31,7 +31,20 @@ jobs:
       shell: cmd
       run: |
             FOR /f "tokens=*" %%i IN ('minikube docker-env --shell cmd') DO %%i
-            docker build -t media-api:latest .
+            docker build -t media-api:latest 
+            .
+    - name: Set kubectl context
+      shell: cmd
+      run: |
+       kubectl config use-context minikube
+
+    - name: Set KUBECONFIG
+      shell: cmd
+      run: |
+         set KUBECONFIG=%USERPROFILE%\.kube\config
+         kubectl cluster-info
+
+
         
     - name: Create 'dev' Kubernetes Namespace
       run: kubectl create namespace dev --dry-run=client -o yaml | kubectl apply -f -
