@@ -32,7 +32,7 @@ jobs:
       run: |
             FOR /f "tokens=*" %%i IN ('minikube docker-env --shell cmd ^| findstr /v false') DO %%i
             docker build -t media-api:latest .
-            .
+            
     - name: Set kubectl context
       shell: cmd
       run: |
