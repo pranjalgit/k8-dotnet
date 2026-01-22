@@ -47,8 +47,9 @@ jobs:
     - name: Build Docker image in Minikube
       shell: cmd
       run: |
-            FOR /f "tokens=*" %%i IN ('minikube docker-env --shell cmd ^| findstr /v false') DO %%i
-            docker build -t media-api:latest .
+        FOR /F "tokens=*" %%i IN ('minikube docker-env --shell cmd ^| findstr /v false') DO %%i
+        set DOCKER_TLS_VERIFY=
+        docker build -t media-api:latest .
 
     - name: Fix kubectl context
       shell: cmd
