@@ -32,13 +32,13 @@ jobs:
     #     minikube stop
     #     minikube delete
     #     minikube start --driver=docker
-    - name: Full Minikube reset (Windows fix)
-      shell: cmd
-      run: |
-        minikube stop
-        minikube delete --all --purge
-        rmdir /s /q %USERPROFILE%\.minikube 2>NUL
-        minikube start --driver=docker
+    # - name: Full Minikube reset (Windows fix)
+    #   shell: cmd
+    #   run: |
+    #     minikube stop
+    #     minikube delete --all --purge
+    #     rmdir /s /q %USERPROFILE%\.minikube 2>NUL
+    #     minikube start --driver=docker
 
     - name: Check Minikube status
       shell: cmd
