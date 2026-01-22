@@ -75,14 +75,14 @@ jobs:
     - name: Build Docker image
       shell: cmd
       run: |
-        docker build --cache-from type=local,src=/tmp/.buildx-cache --tag %DOCKERHUB_USERNAME%/media-api:latest .
+        docker build --cache-from type=local,src=/tmp/.buildx-cache --tag %DOCKERHUB_USERNAME%/media-api:1.0.%GITHUB_RUN_NUMBER% .
        # minikube image load media-api:latest
       env:
         DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
 
     - name: Push Docker image
       run: |
-        docker push %DOCKERHUB_USERNAME%/media-api:latest
+        docker push %DOCKERHUB_USERNAME%/media-api:1.0.%GITHUB_RUN_NUMBER%
       shell: cmd
       env:
         DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -105,7 +105,12 @@ jobs:
          kubectl cluster-info
 
     - name: Create 'dev' Kubernetes Namespace
-      run: kubectl create namespace dev --dry-run=client -o yaml | kubectl apply -f -
+      run: kubectl create namespace dev --dry-run=client -o yaml | kubectl apply -f -     
+    
+    - name: Replace image tag in deployment
+      shell: cmd
+      run: |
+        powershell -Command "(Get-Content ${{ github.workspace }}/k8s/APIDeployment.yaml) -replace '__TAG__', '%GITHUB_RUN_NUMBER%' | Set-Content ${{ github.workspace }}/k8s/APIDeployment.yaml"
 
     - name: Deploy to Kubernetes
       run: |
