@@ -79,8 +79,6 @@ jobs:
          set KUBECONFIG=%USERPROFILE%\.kube\config
          kubectl cluster-info
 
-
-        
     - name: Create 'dev' Kubernetes Namespace
       run: kubectl create namespace dev --dry-run=client -o yaml | kubectl apply -f -
 
