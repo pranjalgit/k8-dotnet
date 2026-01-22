@@ -28,9 +28,10 @@ jobs:
     #     driver: docker
 
     - name: Build Docker image in Minikube
+      shell: powershell
       run: |
-        minikube docker-env --shell powershell | Invoke-Expression
-        docker build -t media-api:latest .
+            minikube docker-env --shell powershell | Invoke-Expression
+            docker build -t media-api:latest .
         
     - name: Create 'dev' Kubernetes Namespace
       run: kubectl create namespace dev --dry-run=client -o yaml | kubectl apply -f -
