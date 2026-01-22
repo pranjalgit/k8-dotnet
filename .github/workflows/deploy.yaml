@@ -26,6 +26,10 @@ jobs:
     #   uses: medyagh/setup-minikube@latest
     #   with:
     #     driver: docker
+    - name: Start Minikube
+      shell: cmd
+      run: minikube start --driver=docker
+
     - name: Check Minikube status
       shell: cmd
       run: minikube status
