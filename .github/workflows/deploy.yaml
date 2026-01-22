@@ -40,7 +40,6 @@ jobs:
     #     rmdir /s /q %USERPROFILE%\.minikube 2>NUL
     #     minikube start --driver=docker
 
-
     - name: Check Minikube status
       shell: cmd
       run: minikube status
