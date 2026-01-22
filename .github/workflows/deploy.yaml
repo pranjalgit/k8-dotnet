@@ -60,6 +60,7 @@ jobs:
       shell: cmd
       run: |
         docker build --cache-from type=local,src=/tmp/.buildx-cache --tag media-api:latest .
+        minikube image load media-api:latest
 
     - name: Fix kubectl context
       shell: cmd
