@@ -26,6 +26,8 @@ spec:
                configMapKeyRef:
                   name: api-config
                   key: DB_HOST
+            - name: BUILD_VERSION
+              value: 1.0.__BUILD_VERSION__
             - name: DB_PORT
               valueFrom:
                configMapKeyRef:

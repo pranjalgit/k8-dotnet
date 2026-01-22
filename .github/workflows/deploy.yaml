@@ -73,6 +73,7 @@ jobs:
       env:
         DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
         DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      #  BUILD_VERSION: 1.0.${{ github.run_number }}
 
     # - name: Build Docker image
     #   run: |
@@ -127,6 +128,13 @@ jobs:
       run: |
         (Get-Content ${{ github.workspace }}/k8s/APIDeployment.yaml) `
           -replace '__TAG__', "$env:GITHUB_RUN_NUMBER" |
+          Set-Content ${{ github.workspace }}/k8s/APIDeployment.yaml
+
+    - name: Replace image tag and build version
+      shell: powershell
+      run: |
+        (Get-Content ${{ github.workspace }}/k8s/APIDeployment.yaml) `
+          -replace '__BUILD_VERSION__', "$env:GITHUB_RUN_NUMBER" |
           Set-Content ${{ github.workspace }}/k8s/APIDeployment.yaml
 
     - name: Deploy to Kubernetes
