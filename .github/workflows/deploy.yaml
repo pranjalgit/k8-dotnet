@@ -1,16 +1,26 @@
 ﻿name: .NET API → Minikube (Docker)
 
 on:
-  push:
-    branches: [ "main" ]
+  # push:
+  #   branches: [ "main" ]
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to deploy"
+        required: true
+        default: "main"
 
 jobs:
   build-deploy:
     runs-on: self-hosted
 
     steps:
-    - name: Checkout
+    # - name: Checkout
+    #   uses: actions/checkout@v4
+    - name: Checkout selected branch
       uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.inputs.branch }}
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
