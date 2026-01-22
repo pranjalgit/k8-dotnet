@@ -107,10 +107,17 @@ jobs:
     - name: Create 'dev' Kubernetes Namespace
       run: kubectl create namespace dev --dry-run=client -o yaml | kubectl apply -f -     
     
+    # - name: Replace image tag in deployment
+    #   shell: cmd
+    #   run: |
+    #     powershell -Command "(Get-Content ${{ github.workspace }}/k8s/APIDeployment.yaml) -replace '__TAG__', %GITHUB_RUN_NUMBER% | Set-Content ${{ github.workspace }}/k8s/APIDeployment.yaml"
+
     - name: Replace image tag in deployment
-      shell: cmd
+      shell: powershell
       run: |
-        powershell -Command "(Get-Content ${{ github.workspace }}/k8s/APIDeployment.yaml) -replace '__TAG__', %GITHUB_RUN_NUMBER% | Set-Content ${{ github.workspace }}/k8s/APIDeployment.yaml"
+        (Get-Content ${{ github.workspace }}/k8s/APIDeployment.yaml) `
+          -replace '__TAG__', "$env:GITHUB_RUN_NUMBER" |
+          Set-Content ${{ github.workspace }}/k8s/APIDeployment.yaml
 
     - name: Deploy to Kubernetes
       run: |
